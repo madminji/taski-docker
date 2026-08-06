@@ -8,22 +8,26 @@ services:
   db:
     image: postgres:13.10
     env_file: .env
+    restart: unless-stopped
     volumes:
       - pg_data_production:/var/lib/postgresql/data
   backend:
     image: madminji/taski_backend
     env_file: .env
+    restart: unless-stopped
     volumes:
       - static_volume:/backend_static
   frontend:
     image: madminji/taski_frontend
     env_file: .env
+    restart: unless-stopped
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static_volume:/frontend_static
   gateway:
     image: madminji/taski_gateway
     env_file: .env
+    restart: unless-stopped
     volumes:
       - static_volume:/staticfiles/
     ports:
